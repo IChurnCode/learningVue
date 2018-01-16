@@ -5,19 +5,29 @@
   <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
+  <!-- have a text area if there is nothing in it, there is error which indicates empty text.. once something is typed, the error goes and appears again if text is cleared.. also submit buttons appears only when there is text..  -->
   <div id="app">
-    <h1>{{ message }}</h1>
-    <input v-model="message">
+    <form>
+      <span class="error" v-show="!message">
+        <!-- we show only alters the css display none; while v-if loads an elements basedo n a condition -->
+      <!-- <span class="error" v-if="!message"> -->
+        You must enter a message
+      </span>
+      <textarea v-model="message"></textarea>
+      <button type="submit" v-show="message">Send message</button>
+    </form>
     <pre>
       {{$data | json}}
     </pre>
+    
   </div>
 
   <script>
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!'
+        // for ever property on the data model, initiliaze it even if it is an empty string
+        message: '' 
       }
     })
   </script>
