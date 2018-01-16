@@ -7,28 +7,31 @@
 <body>
   <!-- basic event handling  -->
   <div id="app">
-      <!-- <form action="done.html" v-on:submit.prevent="handleIt"> -->
-      <form action="done.html" @submit.prevent="handleIt">
-      <!-- the above is very verbose so v-on: can be replaced with @ -->
-      <!-- .prevent => event modifier => like event.preventDefault -->
-      <!-- .stop caan be used to stop propagation and prevent default -->
+    
      
-      <button type="submit">
-        Submit me
+      <button type="submit" @click="updateCount">
+        Increment counter {{count}}
       </button>
-    </form>
+
+      <!-- to do this inline  
    
+      <button type="submit" @click="count += 1">
+        Increment counter {{count}}
+      </button> -->
+
     
   </div>
 
   <script>
     var app = new Vue({
       el: '#app',
+      data: {
+        count: 0
+      },
       methods: {
-        // methods should be defined here
-        handleIt: function(){
-          alert("handled");
-        } 
+        updateCount: function(){
+          this.count += 1;
+        }
       }
     })
   </script>
