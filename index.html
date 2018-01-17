@@ -8,26 +8,59 @@
 
   <div id="app">
     
-     <counter></counter>
+  <simple-counter heading="likes"></simple-counter>
+  <simple-counter heading="dislikes"></simple-counter>
+ 
      
 
     
   </div>
+  <template id="counter-template">
+    <!-- from vue.js 2Component template should contain exactly one root 
+    element. so wrap them in one div -->
+    <div>
+      <h1>{{ heading }}</h1>
+      <button @click="count += 1">{{ count }}</button>
+    </div>
+  </template>
 
   <script>
-    Vue.component('counter',{
-      template: '<h1>Hello World </h1>'
-    });
-    var app = new Vue({
-      el: '#app',
-      // data: {
-      //   count: 0
+
+    // Vue.component('simple-counter', {
+    //   template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+    //   // data is technically a function, so Vue won't
+    //   // complain, but we return the same object
+    //   // reference for each component instance
+    //   data: function () {
+    //     return { counter: 0 }
+    //   }
+    // })
+
+     Vue.component('simple-counter', {
+      template: '#counter-template',
+
+      //use props to make the template tag accept properties
+
+      //as below
+      props: ['heading'],
+
+      // to make it more configurable do as below 
+
+      // props: {
+      //   heading: {default : }
+
       // },
-      // methods: {
-      //   updateCount: function(){
-      //     this.count += 1;
-      //   }
-      // }
+
+      // data is technically a function, so Vue won't
+      // complain, but we return the same object
+      // reference for each component instance
+      data: function () {
+        return { count: 0 }
+      }
+    })
+
+    new Vue({
+      el: '#app'
     })
   </script>
 </body>
