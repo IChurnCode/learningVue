@@ -5,34 +5,29 @@
   <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-  <!-- basic event handling  -->
+
   <div id="app">
     
+     <counter></counter>
      
-      <button type="submit" @click="updateCount">
-        Increment counter {{count}}
-      </button>
-
-      <!-- to do this inline  
-   
-      <button type="submit" @click="count += 1">
-        Increment counter {{count}}
-      </button> -->
 
     
   </div>
 
   <script>
+    Vue.component('counter',{
+      template: '<h1>Hello World </h1>'
+    });
     var app = new Vue({
       el: '#app',
-      data: {
-        count: 0
-      },
-      methods: {
-        updateCount: function(){
-          this.count += 1;
-        }
-      }
+      // data: {
+      //   count: 0
+      // },
+      // methods: {
+      //   updateCount: function(){
+      //     this.count += 1;
+      //   }
+      // }
     })
   </script>
 </body>
