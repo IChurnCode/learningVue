@@ -5,24 +5,11 @@
   <script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-
   <div id="app">
-    
-  <counter heading="likes"></counter>
-  <counter heading="dislikes"></counter>
- 
-     
-
-    
+    <!-- <h1>Skill : {{ points <= 100? 'Beginner' : 'Intermediate' }} </h1>  have it as a computed property instead-->
+    <h1>Skill : {{ skill }} </h1>
+    <input type ="text" v-model="points">
   </div>
-  <template id="counter-template">
-    <!-- from vue.js 2Component template should contain exactly one root 
-    element. so wrap them in one div -->
-    <div>
-      <h1>{{ heading }}</h1>
-      <button @click="count += 1">{{ count }}</button>
-    </div>
-  </template>
 
   <script>
 
@@ -30,31 +17,25 @@
 
 
     new Vue({
+      // el:'body' or 'html' is not recommended now 
       el: '#app',
-      components : {
-        counter : {
-      template: '#counter-template',
 
-      //use props to make the template tag accept properties
+      data: {
+        points : 100
+        
+      },
 
-      //as below
-      props: ['heading'],
+      computed: {
+        skill: function()
+        {
+          if(this.points <= 100) {
+            return 'Beginner';
+          }
+          return 'Advanced';
+        }
 
-      // to make it more configurable do as below 
-
-      // props: {
-      //   heading: {default : }
-
-      // },
-
-      // data is technically a function, so Vue won't
-      // complain, but we return the same object
-      // reference for each component instance
-      data: function () {
-        return { count: 0 }
       }
-    }
-      }
+      
     })
   </script>
 </body>
