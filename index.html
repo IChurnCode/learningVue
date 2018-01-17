@@ -6,9 +6,12 @@
 </head>
 <body>
   <div id="app">
-    <!-- <h1>Skill : {{ points <= 100? 'Beginner' : 'Intermediate' }} </h1>  have it as a computed property instead-->
-    <h1>Skill : {{ skill }} </h1>
-    <input type ="text" v-model="points">
+    <!-- 
+    <h1> {{first}}  {{ last }} </h1> instead of this let's compute full name-->
+   <h1> {{ fullName }} </h1>
+   <input type="text" v-model='first' placeholder="first name">
+   <input type="text" v-model='last' placeholder="last name">
+
   </div>
 
   <script>
@@ -21,22 +24,26 @@
       el: '#app',
 
       data: {
-        points : 100
+        first : 'Iswarya',
+        last: 'Rajagopal',
+        fullName: 'Iswarya Rajagopal'
         
       },
 
-      computed: {
-        skill: function()
-        {
-          if(this.points <= 100) {
-            return 'Beginner';
-          }
-          return 'Advanced';
+      watch: {
+        first: function(first){
+          this.fullName = first + " " + this.last;
+        },
+
+        last: function(last){
+          this.fullName = this.first + " " + last;
         }
 
       }
+
       
-    })
+      
+    });
   </script>
 </body>
 </html>
