@@ -25,23 +25,15 @@
 
       data: {
         first : 'Iswarya',
-        last: 'Rajagopal',
-        fullName: 'Iswarya Rajagopal'
-        
+        last: 'Rajagopal'
       },
 
-      watch: {
-        first: function(first){
-          this.fullName = first + " " + this.last;
-        },
-
-        last: function(last){
-          this.fullName = this.first + " " + last;
+      computed: {
+        fullName: function(){
+          return this.first + " " + this.last;
         }
-
       }
 
-      
       
     });
   </script>
