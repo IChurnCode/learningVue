@@ -8,8 +8,8 @@
 
   <div id="app">
     
-  <simple-counter heading="likes"></simple-counter>
-  <simple-counter heading="dislikes"></simple-counter>
+  <counter heading="likes"></counter>
+  <counter heading="dislikes"></counter>
  
      
 
@@ -26,17 +26,13 @@
 
   <script>
 
-    // Vue.component('simple-counter', {
-    //   template: '<button v-on:click="counter += 1">{{ counter }}</button>',
-    //   // data is technically a function, so Vue won't
-    //   // complain, but we return the same object
-    //   // reference for each component instance
-    //   data: function () {
-    //     return { counter: 0 }
-    //   }
-    // })
+    
 
-     Vue.component('simple-counter', {
+
+    new Vue({
+      el: '#app',
+      components : {
+        counter : {
       template: '#counter-template',
 
       //use props to make the template tag accept properties
@@ -57,10 +53,8 @@
       data: function () {
         return { count: 0 }
       }
-    })
-
-    new Vue({
-      el: '#app'
+    }
+      }
     })
   </script>
 </body>
