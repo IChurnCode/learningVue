@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My first Vue app</title>
+  <script src="https://unpkg.com/vue"></script>
+  <link href="/Users/iswarya/desktop/c3-0.4.18/c3.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js" charset="utf-8"></script>
+  <script src="/Users/iswarya/desktop/c3-0.4.18/c3.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    
+   <button @click='generateDonutChart("#chartContainer",
+                                      [
+                                        ["product a", 10,20,40,60,80],
+                                        ["product b", 20,40,80,120,90],
+                                        ["product c", 30,10,20,30,10]
+                                      ],
+                                      "donut","Sales by product")'> Generate chart</button>
+   <br>
+  
+    <div id="chartContainer"></div>
+
+   <button @click='generatePreviousLevel()' v-if="level!=0"> Previous Chart</button>
+
+  </div>
+
+  <script>
+    
+    new Vue({
+      el: '#app',
+      data: {
+        
+        chart: null,
+        prevChart: null,
+        level: 0,
+        columnData: null
+       
+
+      },
+     
+      methods: {
+
+       
+        loadColumns: function(columnData){
+          var self = this;
+          chart.load({
+            unload: true,
+            columns: columnData
+          });
+          this.columnData = columnData;
+        },
+
+        generateNextLevel: function(){
+          if(this.level >= 2)
+            return;
+
+          if(this.level == 0){
+            var columnData = [
+                              ["India", 10,20,40,60,80],
+                              ["China", 20,40,80,120,90],
+                              ["Denmark", 30,10,20,30,10],
+                              ["Finland", 30,10,20,30,10]
+                            ];
+
+            var newTitle = "Sales by country";
+
+          }
+          else if (this.level == 1){
+           var columnData = [
+                              ["iswarya", 10,20,40,60,80],
+                              ["Divya", 20,40,80,120,90],
+                              ["Apoorva", 30,10,20,30,10],
+                              ["Akshay", 30,10,20,30,10],
+                              ["Varun", 90,10,80,30,10]
+                            ];
+
+           var newTitle = "Sales by salesperson";
+
+          }
+
+          this.loadColumns(columnData);
+          d3.select('#chartContainer .c3-chart-arcs-title').node().innerHTML = newTitle;
+          this.level += 1;
+        
+        },
+
+        generatePreviousLevel: function(){
+          if(this.level == 0)
+            return;
+          if(this.level == 1){
+            var columnData = [
+                                ["product a", 10,20,40,60,80],
+                                ["product b", 20,40,80,120,90],
+                                ["product c", 30,10,20,30,10]
+                             ];
+            var newTitle = "Sales by product";
+
+          }
+          else if (this.level == 2){
+           var columnData = [
+                              ["India", 10,20,40,60,80],
+                              ["China", 20,40,80,120,90],
+                              ["Denmark", 30,10,20,30,10],
+                              ["Finland", 30,10,20,30,10]
+                            ];
+
+          var newTitle = "Sales by country";
+
+          }
+
+          this.loadColumns(columnData);
+          d3.select('#chartContainer .c3-chart-arcs-title').node().innerHTML = newTitle;
+          this.level -= 1;
+        
+        },
+
+        generateDonutChart: function(domElement, columnData, chartType, donutTitle){
+         var self = this;
+         this.level =0;
+         this.columnData = columnData;
+          chart = c3.generate({
+            bindto: domElement,
+            data: {
+                columns: columnData,
+                type : chartType,
+                onclick: function (d,i) { 
+                  self.generateNextLevel();
+                }
+            },
+            donut: {
+                title: donutTitle
+            }
+          });
+        }
+      }
+      
+      
+    });
+  </script>
+</body>
+</html>
